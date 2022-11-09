@@ -1,0 +1,6 @@
+accessLog:
+  filePath: "/log/traefik-access-403.log"
+  format: json
+  filters:
+    statusCodes:
+      - "403"

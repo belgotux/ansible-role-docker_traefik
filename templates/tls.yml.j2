@@ -1,0 +1,15 @@
+{% if traefik_port_https is defined %}
+tls:
+  options:
+{% if traefik_tls_options is defined %}
+    {{traefik_tls_options}}
+{% endif %}
+
+{% if traefik_trust_https_selfsigned_backend is defined and traefik_trust_https_selfsigned_backend %}
+http:
+  serversTransports:
+    unsecureTransports:
+      insecureSkipVerify: true
+{% endif %}
+
+{% endif %}

@@ -1,0 +1,88 @@
+version: '3.7'
+
+networks:
+  {{traefik_network_name}}:
+    external: true
+
+services:
+  {{traefik_service_name}}:
+    image: {{traefik_image}}
+{% if traefik_service_name is defined %}
+    container_name: {{traefik_service_name}}
+{% endif %}
+{% if traefik_mem_limit is defined %}
+    mem_limit: {{traefik_mem_limit}}
+{% endif %}
+    networks:
+      - {{traefik_network_name}}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - $PWD/{{traefik_sub_part[0]}}/acme.json:/acme.json
+      - $PWD/{{traefik_sub_part[0]}}/acme-stg.json:/acme-stg.json
+      - $PWD/{{traefik_sub_part[0]}}/acme-cf.json:/acme-cf.json
+      - $PWD/{{traefik_sub_part[1]}}:/etc/traefik/conf
+{% if traefik_logs is defined %}
+      - {{traefik_logs}}:/log
+{% endif %}
+    ports:
+{% if traefik_port_http is defined %}
+      - {{traefik_port_http}}:80
+{% endif %}
+{% if traefik_port_https is defined %}
+      - {{traefik_port_https}}:443
+{% endif %}
+{% if traefik_port_api_unsecured is defined %}
+      - {{traefik_port_api_unsecured}}:8080
+{% endif %}
+
+    environment:
+      - TZ={{timezone}}
+{% if traefik_cloudflare %}
+      - "CF_DNS_API_TOKEN_FILE=/run/secrets/cf_dns_api_token"
+      - "CF_API_EMAIL_FILE=/run/secrets/cf_api_email"
+{% endif %}
+    restart: "{{traefik_restart}}"
+    command:
+      - --providers.docker
+      - --providers.docker.network={{traefik_network_name}}
+      - --providers.docker.exposedByDefault=false
+      - --providers.file.directory=/etc/traefik/conf
+      - --providers.file.watch=true
+      - --api.insecure
+      - --entrypoints.websecure.address=:443
+{% if traefik_loglevel is defined %}
+      - --log.level={{traefik_loglevel}}
+{% endif %}
+{% if traefik_letsencrypt %}
+      - --certificatesresolvers.le.acme.email={{traefik_letsencrypt_email}}
+      - --certificatesresolvers.le.acme.storage=/acme.json
+      - --certificatesresolvers.le.acme.tlschallenge=true
+{% endif %}
+{% if traefik_letsencrypt_staging %}
+      # staging server
+      - --certificatesResolvers.lestg.acme.caServer=https://acme-staging-v02.api.letsencrypt.org/directory
+      - --certificatesresolvers.lestg.acme.storage=/acme-stg.json
+      - --certificatesresolvers.lestg.acme.tlschallenge=true
+{% endif %}
+{% if traefik_cloudflare %}
+      # cloudflare dns challenge
+      - --certificatesresolvers.lecf.acme.dnschallenge=true
+      - --certificatesresolvers.lecf.acme.dnschallenge.provider=cloudflare
+      - --certificatesresolvers.lecf.acme.email={{traefik_cloudflare_api_email}}
+      - --certificatesresolvers.lecf.acme.storage=/acme-cf.json
+    secrets:
+      - "cf_dns_api_token"
+      - "cf_api_email"
+{% endif %}
+
+{% if traefik_service_options_extra is defined %}
+{{ traefik_service_options_extra }}
+{% endif %}
+
+{% if traefik_cloudflare %}
+secrets:
+  cf_dns_api_token:
+    file: "./{{traefik_sub_part[2]}}/cf_dns_api_token.secret"
+  cf_api_email:
+    file: "./{{traefik_sub_part[2]}}/cf_api_email.secret"
+{% endif %}

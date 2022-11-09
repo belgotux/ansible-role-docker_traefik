@@ -1,0 +1,48 @@
+- name: generate passwordhash
+  shell: "docker run --rm --name create_apache_passwd httpd:alpine htpasswd -nb {{item.user}} {{item.password}} | head -n 1"
+  register: traefik_hash
+  when: item.password is defined
+  loop: "{{traefik_mgt_users}}"
+  loop_control:
+     label: "{{item.user}}"
+  #no_log: true
+
+# - name: raw value
+#   debug:
+#     msg: "{{traefik_hash}}"
+
+# - name: generated
+#   debug:
+#     msg: "{{id}} - {{item.stdout.split(':')[1]}}"
+#   when: item.stdout is defined
+#   loop: "{{traefik_hash.results}}"
+#   loop_control:
+#      label: "{{item.item.user}}"
+#      index_var: id
+
+- name: add generated password to authorized users list
+  set_fact:
+    traefik_mgt_users_formatted: "{{traefik_mgt_users_formatted + [item.stdout]}}"
+  when: item.stdout is defined
+  loop: "{{traefik_hash.results}}"
+  loop_control:
+     label: "{{item.item.user}}"
+     index_var: id
+- name: add passhash to authorized users list
+  set_fact:
+    traefik_mgt_users_formatted: '{{traefik_mgt_users_formatted + [item.user ~ ":" ~ item.passhash]}}'
+  when: item.passhash is defined
+  loop: "{{traefik_mgt_users}}"
+  loop_control:
+     label: "{{item.user}}"
+     index_var: id
+- name: show hash to add to mgt
+  debug: var=traefik_mgt_users_formatted
+
+- name: copy mgt.yml
+  template:
+    src: mgt.yml.j2
+    dest: "{{docker_traefik_dir}}/{{traefik_sub_part[1]}}/mgt.yml"
+    # owner: "{{docker_user}}"
+    # group: "{{docker_group}}"
+    mode: 0775

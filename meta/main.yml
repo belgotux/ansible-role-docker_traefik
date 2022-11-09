@@ -1,0 +1,25 @@
+galaxy_info:
+  role_name: docker_traefik
+  author: belgotux
+  description: Role to create traefik proxy on docker
+  license: GPL-3.0-or-later
+
+  min_ansible_version: '2.1'
+
+  platforms:
+  - name: Debian
+    versions:
+    - all
+  - name: Ubuntu
+    versions:
+    - all
+
+  galaxy_tags: 
+  - docker
+  - traefik
+
+collections:
+  - community.docker
+
+# dependencies:
+#   - {role: "belgotux.docker"}

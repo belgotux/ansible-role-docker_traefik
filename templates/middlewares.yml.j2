@@ -1,0 +1,20 @@
+http:
+{% if 'redirect-to-https' in traefik_middlewares_enabled %}
+  middlewares:
+    redirect-to-https:
+      redirectscheme:
+        scheme: https
+        permanent: true
+{% endif %}
+{% if 'whitelist' in traefik_middlewares_enabled %}
+    {{whitelist.name}}:
+      ipWhiteList:
+        sourceRange:
+          {{ips}}
+{% endif %}
+{% if 'secure-headers' in traefik_middlewares_enabled %}
+    secure-headers:
+      headers:
+        customFrameOptionsValue: SAMEORIGIN
+        STSSeconds: 315360000
+{% endif %}

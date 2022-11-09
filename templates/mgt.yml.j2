@@ -1,0 +1,16 @@
+http:
+  routers:
+    mgt:
+      entrypoints: websecure
+      tls:
+        certresolver: le
+      middlewares: auth-mgt@file
+      rule: Host(`proxymgt.{{traefik_domain}}`)
+      service: api@internal
+  middlewares:
+    auth-mgt:
+      basicauth:
+        users:
+{% for line in traefik_mgt_users_formatted %}
+          - "{{line}}"
+{% endfor %}

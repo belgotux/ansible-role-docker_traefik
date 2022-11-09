@@ -1,0 +1,70 @@
+---
+docker_user: "{{remote_user}}"
+docker_group: "docker"
+docker_conf: "/etc/docker"
+timezone: "Europe/Brussels"
+
+traefik_service_name: traefik
+traefik_network_name: "proxy-net"
+traefik_restart: "always"
+#traefik_loglevel:
+#########traefik_start_after_install: yes
+traefik_port_https: 443
+#traefik_port_http:
+#traefik_port_api_unsecured:
+
+#Need to respect and shift the indentation
+traefik_tls_options: |
+  #
+      default:
+        minVersion: VersionTLS12
+traefik_trust_https_selfsigned_backend: yes
+
+#needed following dir in ordre, but you can change the name : certificats, configuration, secrets
+traefik_sub_part:
+  - certs
+  - conf
+  - secrets
+
+traefik_middlewares_enabled:
+  - redirect-to-https
+  - secure-headers
+  - whitelist:
+            name: local-whitelist
+            ips: 
+              - "192.168.0.0/16"
+              - "10.0.0.0/8"
+              - "172.16.0.0/12"
+              - "127.0.0.1/32"
+              - "::1/128"
+              - "10.10.11.1/32"
+
+###################
+# VALUE TO CHANGE #
+###################
+traefik_mem_limit: 1g
+traefik_domain: "yourdomain.tld"
+traefik_subdomain: "traefik"
+traefik_image: traefik:latest
+#traefik_logs: /var/log/traefik
+
+traefik_cloudflare: no
+traefik_cloudflare_api_email: you@changeTOyourdomain.tld
+traefik_cloudflare_api_token: xxx
+
+traefik_letsencrypt: no
+traefik_letsencrypt_email: you@changeTOyourdomain.tld
+traefik_letsencrypt_staging: no
+
+# give password or directly tha apache hash (more secure)
+traefik_mgt_users:
+  - user: test
+    passhash: $apr1$vGr2HnCE$XjiVh6mObD3/otstwFSdc1
+  - user: admin
+    password: traefik
+
+###################
+#### calculated ###
+###################
+docker_traefik_dir: "{{docker_conf}}/{{traefik_service_name}}"
+traefik_mgt_users_formatted: []
