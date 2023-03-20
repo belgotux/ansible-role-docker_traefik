@@ -6,7 +6,7 @@
     # group: "{{docker_group}}"
     mode: 0775
 
-- name: copy simple configurations files
+- name: copy common configurations files
   copy:
     src: "{{item}}"
     dest: "{{docker_traefik_dir}}/{{traefik_sub_part[1]}}/{{item|basename}}"
@@ -41,3 +41,9 @@
     mode: 0660
     content: "{{traefik_cloudflare_api_token}}"
   when: traefik_cloudflare
+
+- name: check custom configurations files based on group name
+  include_tasks: add-custon-config-for-group.yml
+  loop: "{{group_names}}"
+  loop_control:
+    loop_var: current_group

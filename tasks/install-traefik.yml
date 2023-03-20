@@ -20,16 +20,6 @@
   loop: "{{traefik_sub_part}}"
   when: traefik_sub_part is defined
 
-# TODO use another think than touch to create files with good rights
-# - name: create keystore certificats file in {{traefik_sub_part[0]}}
-#   file:
-#     name: "{{docker_traefik_dir}}/{{traefik_sub_part[0]}}/{{item}}"
-#     state: touch
-#     #owner: "{{docker_user}}"
-#     #group: "{{docker_group}}"
-#     mode: 0600
-#   loop: ['acme.json','acme-stg.json','acme-cf.json']
-
 - name: dockerpull image {{traefik_image}}
   community.docker.docker_image:
     name: "{{traefik_image}}"

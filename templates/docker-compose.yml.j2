@@ -17,10 +17,8 @@ services:
       - {{traefik_network_name}}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - $PWD/{{traefik_sub_part[0]}}/acme.json:/acme.json
-      - $PWD/{{traefik_sub_part[0]}}/acme-stg.json:/acme-stg.json
-      - $PWD/{{traefik_sub_part[0]}}/acme-cf.json:/acme-cf.json
-      - $PWD/{{traefik_sub_part[1]}}:/etc/traefik/conf
+      - {{docker_traefik_dir}}/{{traefik_sub_part[0]}}:/etc/traefik/certs
+      - {{docker_traefik_dir}}/{{traefik_sub_part[1]}}:/etc/traefik/conf
 {% if traefik_logs is defined %}
       - {{traefik_logs}}:/log
 {% endif %}
@@ -55,13 +53,13 @@ services:
 {% endif %}
 {% if traefik_letsencrypt %}
       - --certificatesresolvers.le.acme.email={{traefik_letsencrypt_email}}
-      - --certificatesresolvers.le.acme.storage=/acme.json
+      - --certificatesresolvers.le.acme.storage=/etc/traefik/certs/acme.json
       - --certificatesresolvers.le.acme.tlschallenge=true
 {% endif %}
 {% if traefik_letsencrypt_staging %}
       # staging server
       - --certificatesResolvers.lestg.acme.caServer=https://acme-staging-v02.api.letsencrypt.org/directory
-      - --certificatesresolvers.lestg.acme.storage=/acme-stg.json
+      - --certificatesresolvers.lestg.acme.storage=/etc/traefik/certs/acme-stg.json
       - --certificatesresolvers.lestg.acme.tlschallenge=true
 {% endif %}
 {% if traefik_cloudflare %}
@@ -69,7 +67,7 @@ services:
       - --certificatesresolvers.lecf.acme.dnschallenge=true
       - --certificatesresolvers.lecf.acme.dnschallenge.provider=cloudflare
       - --certificatesresolvers.lecf.acme.email={{traefik_cloudflare_api_email}}
-      - --certificatesresolvers.lecf.acme.storage=/acme-cf.json
+      - --certificatesresolvers.lecf.acme.storage=/etc/traefik/certs/acme-cf.json
     secrets:
       - "cf_dns_api_token"
       - "cf_api_email"

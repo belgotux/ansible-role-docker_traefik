@@ -3,7 +3,7 @@ http:
     mgt:
       entrypoints: websecure
       tls:
-        certresolver: le
+        certresolver: {{traefik_mgt_certresolver}}
       middlewares: auth-mgt@file
       rule: Host(`proxymgt.{{traefik_domain}}`)
       service: api@internal

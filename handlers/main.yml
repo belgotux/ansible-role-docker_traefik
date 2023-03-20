@@ -3,6 +3,7 @@
   community.docker.docker_compose:
     project_src: "{{docker_traefik_dir}}"
     state: present
+    restarted: true
 
 - name: docker-compose pull traefik
   community.docker.docker_compose:

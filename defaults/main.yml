@@ -45,6 +45,7 @@ traefik_middlewares_enabled:
 traefik_mem_limit: 1g
 traefik_domain: "yourdomain.tld"
 traefik_subdomain: "traefik"
+traefik_mgt_certresolver: "le"
 traefik_image: traefik:latest
 #traefik_logs: /var/log/traefik
 

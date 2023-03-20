@@ -25,6 +25,7 @@
     traefik_mgt_users_formatted: "{{traefik_mgt_users_formatted + [item.stdout]}}"
   when: item.stdout is defined
   loop: "{{traefik_hash.results}}"
+  # item.item ????
   loop_control:
      label: "{{item.item.user}}"
      index_var: id
