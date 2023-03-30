@@ -2,8 +2,12 @@ http:
   routers:
     mgt:
       entrypoints: websecure
+{% if traefik_mgt_certresolver is defined %}
       tls:
         certresolver: {{traefik_mgt_certresolver}}
+{% else %}
+      tls: true
+{% endif %}
       middlewares: auth-mgt@file
       rule: Host(`proxymgt.{{traefik_domain}}`)
       service: api@internal

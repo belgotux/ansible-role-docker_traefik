@@ -25,12 +25,20 @@ The role can work as it with the [default configuration](defaults/main.yml).
 - `traefik_mem_limit` docker memory limit (default `1g`)
 - `traefik_image` image path (default `traefik:latest`)
 - `traefik_logs` path to host for traefik log (default none, logs into the conainer, not permanent data)
+- `traefik_mgt_certresolver` use `le` for let's encrypt https | `lestg` for staging let's encrypt | `lecf` for cloudflare dns for let's encrypt (default none and use default auto-sign traefik certificat or `default` store certificats)
 - `traefik_cloudflare` allow to use dns verification for letsencrypt with cloudflare if your domain is managed on cloudflare (default `no`)
 - `traefik_cloudflare_api_email` cloudflare email
 - `traefik_cloudflare_api_token`: cloudflare token
 - `traefik_letsencrypt` allow to use acme tlschallenge verification for letsencrypt in your container services (default `no`)
 - `traefik_letsencrypt_api_email` your email
 - `traefik_letsencrypt_staging`: allow to use STAGING acme tlschallenge verification for letsencrypt in your container services (default `no`)
+- `traefik_custom_certs`: list of certificats in the following format. Please understand that the path is relative WITHIN the docker container to `/etc/traefik/certs/`. The mount point on the host is `{{docker_traefik_dir}}/{{traefik_sub_part[0]}}`, with the default value typically `/etc/docker/traefik/certs`. One certificat by store is managed currently.
+```
+- name: xxx
+  store: default
+  certFile: "xxx.cer"
+  keyFile: "xxx.key"
+```
 
 
 ### variables (optionnal)

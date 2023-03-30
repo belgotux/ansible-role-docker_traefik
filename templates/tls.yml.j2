@@ -5,6 +5,23 @@ tls:
     {{traefik_tls_options}}
 {% endif %}
 
+{% if traefik_custom_certs is defined %}
+  certificates:
+{% for cert in traefik_custom_certs %}
+    - certFile: /etc/traefik/certs/{{ cert.certFile }}
+      keyFile: /etc/traefik/certs/{{ cert.keyFile }}
+      stores:
+        - {{ cert.store }}
+{% endfor %}    
+  stores:
+{% for cert in traefik_custom_certs %}
+    {{ cert.store }}:
+      defaultCertificate:
+        certFile: /etc/traefik/certs/{{ cert.certFile }}
+        keyFile: /etc/traefik/certs/{{ cert.keyFile }}
+{% endfor %}
+{% endif %}
+
 {% if traefik_trust_https_selfsigned_backend is defined and traefik_trust_https_selfsigned_backend %}
 http:
   serversTransports:

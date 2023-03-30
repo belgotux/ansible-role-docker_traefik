@@ -45,7 +45,6 @@ traefik_middlewares_enabled:
 traefik_mem_limit: 1g
 traefik_domain: "yourdomain.tld"
 traefik_subdomain: "traefik"
-traefik_mgt_certresolver: "le"
 traefik_image: traefik:latest
 #traefik_logs: /var/log/traefik
 
@@ -56,6 +55,8 @@ traefik_cloudflare_api_token: xxx
 traefik_letsencrypt: no
 traefik_letsencrypt_email: you@changeTOyourdomain.tld
 traefik_letsencrypt_staging: no
+
+#traefik_custom_certs: []
 
 # give password or directly tha apache hash (more secure)
 traefik_mgt_users:
