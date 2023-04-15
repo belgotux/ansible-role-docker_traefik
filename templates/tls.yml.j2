@@ -11,15 +11,14 @@ tls:
     - certFile: /etc/traefik/certs/{{ cert.certFile }}
       keyFile: /etc/traefik/certs/{{ cert.keyFile }}
       stores:
-        - {{ cert.store }}
+        - default
 {% endfor %}    
   stores:
-{% for cert in traefik_custom_certs %}
-    {{ cert.store }}:
+    default:
       defaultCertificate:
-        certFile: /etc/traefik/certs/{{ cert.certFile }}
-        keyFile: /etc/traefik/certs/{{ cert.keyFile }}
-{% endfor %}
+        certFile: /etc/traefik/certs/{{ traefik_custom_default_cert.certFile }}
+        keyFile: /etc/traefik/certs/{{ traefik_custom_default_cert.keyFile }}
+
 {% endif %}
 
 {% if traefik_trust_https_selfsigned_backend is defined and traefik_trust_https_selfsigned_backend %}

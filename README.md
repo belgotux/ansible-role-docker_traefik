@@ -35,11 +35,10 @@ The role can work as it with the [default configuration](defaults/main.yml).
 - `traefik_custom_certs`: list of certificats in the following format. Please understand that the path is relative WITHIN the docker container to `/etc/traefik/certs/`. The mount point on the host is `{{docker_traefik_dir}}/{{traefik_sub_part[0]}}`, with the default value typically `/etc/docker/traefik/certs`. One certificat by store is managed currently.
 ```
 - name: xxx
-  store: default
   certFile: "xxx.cer"
   keyFile: "xxx.key"
 ```
-
+Currently, only one store is usable and is named `default`. We can't use multi store at this note redaction [sources](https://doc.traefik.io/traefik/https/tls/#certificates-stores).
 
 ### variables (optionnal)
 - `traefik_subdomain` subdomain to use for the Traefik management interface (default `traefik`)
@@ -53,6 +52,7 @@ The role can work as it with the [default configuration](defaults/main.yml).
 - `traefik_sub_part` list of the 3 needed sub-directories, you can rename it but order is important (default `[certs,conf,secrets]`)
 - `traefik_middlewares_enabled` list of 3 commons middlewares used that you can use in your container services : redirect all http to https trafic, secure https headers, whitelist all local IP addresses (actif by default, see `defaults/main.yml`)
 - `traefik_service_options_extra` you can add extra options under the traefik service
+- `traefik_custom_default_cert` you can speficied which of the custom certificat need to be used, same structure as `traefik_custom_certs`. By default the first one is used (`traefik_custom_certs[0]`)
 
 ### Docker vars (can be inherit for the docker role)
 - `docker_user` your usual user to run a docker container (by default the first user with uid 1000)
