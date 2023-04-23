@@ -58,6 +58,7 @@ Currently, only one store is usable and is named `default`. We can't use multi s
 - `docker_user` your usual user to run a docker container (by default the first user with uid 1000)
 - `docker_group` your usual group to run a docker container (default `docker`)
 - `docker_conf` the docker configurations's repository (default `/etc/docker`)
+- `docker_swarm` activate docker swarm for network and Traefik mode (default no)
 - `timezone` timezone for the container (default `Europe/Brussels`)
 
 ### Traefik role vars (can be use in roles that depend on traefik_role)

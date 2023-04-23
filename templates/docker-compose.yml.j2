@@ -7,10 +7,10 @@ networks:
 services:
   {{traefik_service_name}}:
     image: {{traefik_image}}
-{% if traefik_service_name is defined %}
+{% if traefik_service_name is defined and docker_swarm is not defined %}
     container_name: {{traefik_service_name}}
 {% endif %}
-{% if traefik_mem_limit is defined %}
+{% if traefik_mem_limit is defined and docker_swarm is not defined %}
     mem_limit: {{traefik_mem_limit}}
 {% endif %}
     networks:
@@ -51,6 +51,9 @@ services:
 {% if traefik_loglevel is defined %}
       - --log.level={{traefik_loglevel}}
 {% endif %}
+{% if docker_swarm is defined %}
+      - --providers.docker.swarmmode
+{% endif %}
 {% if traefik_letsencrypt %}
       - --certificatesresolvers.le.acme.email={{traefik_letsencrypt_email}}
       - --certificatesresolvers.le.acme.storage=/etc/traefik/certs/acme.json
@@ -59,6 +62,7 @@ services:
 {% if traefik_letsencrypt_staging %}
       # staging server
       - --certificatesResolvers.lestg.acme.caServer=https://acme-staging-v02.api.letsencrypt.org/directory
+      - --certificatesresolvers.lestg.acme.email={{traefik_letsencrypt_email}}
       - --certificatesresolvers.lestg.acme.storage=/etc/traefik/certs/acme-stg.json
       - --certificatesresolvers.lestg.acme.tlschallenge=true
 {% endif %}
@@ -71,6 +75,17 @@ services:
     secrets:
       - "cf_dns_api_token"
       - "cf_api_email"
+{% endif %}
+{% if docker_swarm is defined and docker_swarm %}
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+      resources:
+        limits:
+{% if traefik_mem_limit is defined %}
+          memory: {{traefik_mem_limit}}
+{% endif %}
 {% endif %}
 
 {% if traefik_service_options_extra is defined %}
