@@ -23,6 +23,7 @@
     # group: "{{docker_group}}"
     mode: 0775
   loop: [middlewares,tls]
+  when: traefik_custom_certs is defined
 
 - name: create cloudflaire API email
   copy:
