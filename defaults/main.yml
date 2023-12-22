@@ -58,7 +58,7 @@ traefik_letsencrypt_staging: no
 
 #traefik_custom_certs: []
 
-traefik_custom_default_cert: '{{traefik_custom_certs[0]}}'
+# done by task : traefik_custom_default_cert: '{{traefik_custom_certs[0]}}'
 
 # give password or directly tha apache hash (more secure)
 traefik_mgt_users:

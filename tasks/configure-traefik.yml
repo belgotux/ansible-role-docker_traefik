@@ -15,6 +15,10 @@
     mode: 0775
   loop: "{{lookup('fileglob','configurations/*',wantlist=True)}}"
 
+- set_fact:
+    traefik_custom_default_cert: '{{traefik_custom_certs[0]}}'
+  when: traefik_custom_certs is defined
+
 - name: copy template configurations files
   template:
     src: "{{item}}.yml.j2"
@@ -23,7 +27,6 @@
     # group: "{{docker_group}}"
     mode: 0775
   loop: [middlewares,tls]
-  when: traefik_custom_certs is defined
 
 - name: create cloudflaire API email
   copy:
