@@ -24,7 +24,7 @@ The role can work as it with the [default configuration](defaults/main.yml).
 ### variables useful to change
 - `traefik_mem_limit` docker memory limit (default `1g`)
 - `traefik_image` image path (default `traefik:latest`)
-- `traefik_logs` path to host for traefik log (default none, logs into the conainer, not permanent data)
+- `traefik_logs` path to host for traefik log (default none, logs into the container, not permanent data)
 - `traefik_mgt_certresolver` use `le` for let's encrypt https | `lestg` for staging let's encrypt | `lecf` for cloudflare dns for let's encrypt (default none and use default auto-sign traefik certificat or `default` store certificats)
 - `traefik_cloudflare` allow to use dns verification for letsencrypt with cloudflare if your domain is managed on cloudflare (default `no`)
 - `traefik_cloudflare_api_email` cloudflare email
