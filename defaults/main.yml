@@ -8,7 +8,7 @@ traefik_service_name: traefik
 traefik_network_name: "proxy-net"
 traefik_restart: "always"
 #traefik_loglevel:
-#########traefik_start_after_install: yes
+#########traefik_start_after_install: true
 traefik_port_https: 443
 #traefik_port_http:
 #traefik_port_api_unsecured:
@@ -18,7 +18,7 @@ traefik_tls_options: |
   #
       default:
         minVersion: VersionTLS12
-traefik_trust_https_selfsigned_backend: yes
+traefik_trust_https_selfsigned_backend: true
 
 #needed following dir in ordre, but you can change the name : certificats, configuration, secrets
 traefik_sub_part:
@@ -48,13 +48,13 @@ traefik_subdomain: "traefik"
 traefik_image: traefik:latest
 #traefik_logs: /var/log/traefik
 
-traefik_cloudflare: no
+traefik_cloudflare: false
 traefik_cloudflare_api_email: you@changeTOyourdomain.tld
 traefik_cloudflare_api_token: xxx
 
-traefik_letsencrypt: no
+traefik_letsencrypt: false
 traefik_letsencrypt_email: you@changeTOyourdomain.tld
-traefik_letsencrypt_staging: no
+traefik_letsencrypt_staging: false
 
 #traefik_custom_certs: []
 

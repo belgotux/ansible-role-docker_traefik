@@ -8,4 +8,4 @@
 - name: docker-compose pull traefik
   community.docker.docker_compose:
     project_src: "{{docker_traefik_dir}}"
-    pull: yes
+    pull: true
