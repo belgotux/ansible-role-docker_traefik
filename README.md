@@ -47,8 +47,10 @@ Currently, only one store is usable and is named `default`. We can't use multi s
 - `traefik_port_http` listen port for https. Enabling traefik to listen to this port and doing port mapping for the host (default none)
 - `traefik_port_api_unsecured` listen port to access directly to the dashboard of Traefik **for testing only** (default none)
 - `traefik_loglevel` set the loglevel like WARNING, INFO,... (default none)
-- `traefik_tls_options` set the tls options. [See official documentation](https://doc.traefik.io/traefik/https/tls/#minimum-tls-version) for more details (default `minVersion : VersionTLS12` to allow only min TLS 1.2 clients compatible)
+- `traefik_tls_options_default` set the tls default options. [See official documentation](https://doc.traefik.io/traefik/https/tls/#minimum-tls-version) for more details (default `minVersion : VersionTLS12` to allow only min TLS 1.2 clients compatible)
+- `traefik_tls_options` set other tls options (dafault none)
 - `traefik_trust_https_selfsigned_backend` allow untrusted https backend, like a self-signed service, if you want to centralize the TLS layer in traefik (default `yes`)
+- `traefik_tls_sni_strict` Traefik won't allow connections from clients that do not specify a server_name extension or don't match any of the configured certificates [see official documentation(https://doc.traefik.io/traefik/https/tls/#strict-sni-checking)] (default `false`)
 - `traefik_sub_part` list of the 3 needed sub-directories, you can rename it but order is important (default `[certs,conf,secrets]`)
 - `traefik_middlewares_enabled` list of 3 commons middlewares used that you can use in your container services : redirect all http to https trafic, secure https headers, whitelist all local IP addresses (actif by default, see `defaults/main.yml`)
 - `traefik_service_options_extra` you can add extra options under the traefik service

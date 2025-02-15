@@ -14,11 +14,10 @@ traefik_port_https: 443
 #traefik_port_api_unsecured:
 
 #Need to respect and shift the indentation
-traefik_tls_options: |
-  #
-      default:
-        minVersion: VersionTLS12
+traefik_tls_options_default: |
+    minVersion: VersionTLS12
 traefik_trust_https_selfsigned_backend: true
+traefik_tls_sni_strict: false
 
 #needed following dir in ordre, but you can change the name : certificats, configuration, secrets
 traefik_sub_part:

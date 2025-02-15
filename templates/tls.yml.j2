@@ -1,8 +1,15 @@
 {% if traefik_port_https is defined %}
 tls:
   options:
+{% if traefik_tls_options_default is defined %}
+    default:
+      {{ traefik_tls_options_default }}
+{% if traefik_tls_sni_strict %}
+      sniStrict: true
+{% endif %}
+{% endif %}
 {% if traefik_tls_options is defined %}
-    {{traefik_tls_options}}
+    {{ traefik_tls_options }}
 {% endif %}
 
 {% if traefik_custom_certs is defined %}
@@ -12,12 +19,14 @@ tls:
       keyFile: /etc/traefik/certs/{{ cert.keyFile }}
       stores:
         - default
-{% endfor %}    
+{% endfor %}
+{% if not traefik_tls_sni_strict %}    
   stores:
     default:
       defaultCertificate:
         certFile: /etc/traefik/certs/{{ traefik_custom_default_cert.certFile }}
         keyFile: /etc/traefik/certs/{{ traefik_custom_default_cert.keyFile }}
+{% endif %}
 
 {% endif %}
 
