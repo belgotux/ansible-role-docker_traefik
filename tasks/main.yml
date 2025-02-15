@@ -4,7 +4,9 @@
   tags: [install]
 - import_tasks: configure-traefik.yml
   tags: [configure]
-  notify: docker up traefik
+  notify:
+    - docker down traefik
+    - docker up traefik
 - import_tasks: configure-mgt.yml
   tags: [configure]
  # notify: docker up traefik

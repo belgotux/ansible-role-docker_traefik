@@ -1,4 +1,8 @@
 ---
+- name: docker down traefik
+  community.docker.docker_compose_v2:
+    project_src: "{{ docker_traefik_dir }}"
+    state: absent
 - name: docker up traefik
   community.docker.docker_compose_v2:
     project_src: "{{ docker_traefik_dir }}"
