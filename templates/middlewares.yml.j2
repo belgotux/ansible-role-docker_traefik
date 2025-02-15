@@ -1,7 +1,7 @@
 http:
 {% for middleware in traefik_middlewares_enabled %}
-{% if 'redirect-to-https' in middleware %}
   middlewares:
+{% if 'redirect-to-https' in middleware %}
     redirect-to-https:
       redirectscheme:
         scheme: https
