@@ -1,8 +1,14 @@
 ---
+- name: docker ps traefik
+  command: docker compose -f {{ traefik_dir }}/docker-compose.yml ps
+  register: traefik_status
+
 - name: docker down traefik
   community.docker.docker_compose_v2:
     project_src: "{{ traefik_dir }}"
     state: absent
+  when: traefik_status.stdout_lines | length > 1
+  
 - name: docker up traefik
   community.docker.docker_compose_v2:
     project_src: "{{ traefik_dir }}"

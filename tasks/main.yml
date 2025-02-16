@@ -5,6 +5,7 @@
 - import_tasks: configure-traefik.yml
   tags: [configure]
   notify:
+    - docker ps traefik
     - docker down traefik
     - docker up traefik
 - import_tasks: configure-mgt.yml
