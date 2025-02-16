@@ -1,7 +1,7 @@
 - name: copy docker-compose.yml
   template:
     src: docker-compose.yml.j2
-    dest: "{{docker_traefik_dir}}/docker-compose.yml"
+    dest: "{{traefik_dir}}/docker-compose.yml"
     # owner: "{{docker_user}}"
     # group: "{{docker_group}}"
     mode: 0775
@@ -9,7 +9,7 @@
 - name: copy common configurations files
   copy:
     src: "{{item}}"
-    dest: "{{docker_traefik_dir}}/{{traefik_sub_part[1]}}/{{item|basename}}"
+    dest: "{{traefik_dir}}/{{traefik_sub_part[1]}}/{{item|basename}}"
     # owner: "{{docker_user}}"
     # group: "{{docker_group}}"
     mode: 0775
@@ -22,7 +22,7 @@
 - name: copy template configurations files
   template:
     src: "{{item}}.yml.j2"
-    dest: "{{docker_traefik_dir}}/{{traefik_sub_part[1]}}/{{item}}.yml"
+    dest: "{{traefik_dir}}/{{traefik_sub_part[1]}}/{{item}}.yml"
     # owner: "{{docker_user}}"
     # group: "{{docker_group}}"
     mode: 0775
@@ -30,7 +30,7 @@
 
 - name: create cloudflaire API email
   copy:
-    dest: "{{docker_traefik_dir}}/{{traefik_sub_part[2]}}/cf_api_email.secret"
+    dest: "{{traefik_dir}}/{{traefik_sub_part[2]}}/cf_api_email.secret"
     # owner: "{{docker_user}}"
     # group: "{{docker_gorup}}"
     mode: 0660
@@ -39,7 +39,7 @@
 
 - name: create cloudflaire API token
   copy:
-    dest: "{{docker_traefik_dir}}/{{traefik_sub_part[2]}}/cf_dns_api_token.secret"
+    dest: "{{traefik_dir}}/{{traefik_sub_part[2]}}/cf_dns_api_token.secret"
     # owner: "{{docker_user}}"
     # group: "{{docker_gorup}}"
     mode: 0660

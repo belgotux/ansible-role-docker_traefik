@@ -43,7 +43,7 @@
 - name: copy mgt.yml
   template:
     src: mgt.yml.j2
-    dest: "{{docker_traefik_dir}}/{{traefik_sub_part[1]}}/mgt.yml"
+    dest: "{{traefik_dir}}/{{traefik_sub_part[1]}}/mgt.yml"
     # owner: "{{docker_user}}"
     # group: "{{docker_group}}"
     mode: 0775

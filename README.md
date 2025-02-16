@@ -32,7 +32,7 @@ The role can work as it with the [default configuration](defaults/main.yml).
 - `traefik_letsencrypt` allow to use acme tlschallenge verification for letsencrypt in your container services (default `no`)
 - `traefik_letsencrypt_api_email` your email
 - `traefik_letsencrypt_staging`: allow to use STAGING acme tlschallenge verification for letsencrypt in your container services (default `no`)
-- `traefik_custom_certs`: list of certificats in the following format. Please understand that the path is relative WITHIN the docker container to `/etc/traefik/certs/`. The mount point on the host is `{{docker_traefik_dir}}/{{traefik_sub_part[0]}}`, with the default value typically `/etc/docker/traefik/certs`. One certificat by store is managed currently.
+- `traefik_custom_certs`: list of certificats in the following format. Please understand that the path is relative WITHIN the docker container to `/etc/traefik/certs/`. The mount point on the host is `{{traefik_dir}}/{{traefik_sub_part[0]}}`, with the default value typically `/etc/docker/traefik/certs`. One certificat by store is managed currently.
 ```
 - name: xxx
   certFile: "xxx.cer"
@@ -67,7 +67,7 @@ Currently, only one store is usable and is named `default`. We can't use multi s
 - `traefik_network_name` your traefik network (default `proxy-net`)
 
 ### generated vars
-- `docker_traefik_dir` is concatenation of `docker_conf`/`traefik_service_name` (default `/etc/docker/traefik`)
+- `traefik_dir` is concatenation of `docker_conf`/`traefik_service_name` (default `/etc/docker/traefik`)
 
 Additionnal traefik configuration files
 ---------------------------------------

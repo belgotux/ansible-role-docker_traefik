@@ -69,5 +69,5 @@ traefik_mgt_users:
 ###################
 #### calculated ###
 ###################
-docker_traefik_dir: "{{docker_conf}}/{{traefik_service_name}}"
+traefik_dir: "{{docker_conf}}/{{traefik_service_name}}"
 traefik_mgt_users_formatted: []

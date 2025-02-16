@@ -1,14 +1,14 @@
 ---
 - name: docker down traefik
   community.docker.docker_compose_v2:
-    project_src: "{{ docker_traefik_dir }}"
+    project_src: "{{ traefik_dir }}"
     state: absent
 - name: docker up traefik
   community.docker.docker_compose_v2:
-    project_src: "{{ docker_traefik_dir }}"
+    project_src: "{{ traefik_dir }}"
     state: present
 
 - name: docker-compose pull traefik
   community.docker.docker_compose_v2:
-    project_src: "{{ docker_traefik_dir }}"
+    project_src: "{{ traefik_dir }}"
     pull: true

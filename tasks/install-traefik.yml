@@ -1,6 +1,6 @@
 - name: create traefik dir
   file:
-    name: "{{docker_traefik_dir}}"
+    name: "{{traefik_dir}}"
     state: directory
     #owner: "{{docker_user}}"
     #group: "{{docker_group}}"
@@ -12,7 +12,7 @@
 
 - name: create dirs {{traefik_sub_part}}
   file:
-    name: "{{docker_traefik_dir}}/{{item}}"
+    name: "{{traefik_dir}}/{{item}}"
     state: directory
     #owner: "{{docker_user}}"
     #group: "{{docker_group}}"
