@@ -51,6 +51,7 @@ Currently, only one store is usable and is named `default`. We can't use multi s
 - `traefik_middlewares_enabled` list of 3 commons middlewares used that you can use in your container services : redirect all http to https trafic, secure https headers, whitelist all local IP addresses (actif by default, see `defaults/main.yml`)
 - `traefik_service_options_extra` you can add extra options under the traefik service
 - `traefik_network_name` your traefik network (default `proxy-net`)
+- `traefik_exposed_by_default` Treafik service discovery take all containers and add it as a service automatically. Otherwize, you need to add explicitly `traefik.enable=true` as label on each container you want to expose in traefik, see [documentation](https://doc.traefik.io/traefik/providers/overview/#restrict-the-scope-of-service-discovery) (default `true`)
 
 ### generated vars
 - `traefik_dir` is concatenation of `docker_conf`/`traefik_service_name` (default `/etc/docker/traefik`)

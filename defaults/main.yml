@@ -7,6 +7,7 @@ timezone: "Europe/Brussels"
 traefik_service_name: traefik
 traefik_network_name: "proxy-net"
 traefik_restart: "always"
+traefik_exposed_by_default: true
 #traefik_loglevel:
 #########traefik_start_after_install: true
 traefik_port_https: 443

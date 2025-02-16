@@ -41,7 +41,7 @@ services:
     command:
       - --providers.docker
       - --providers.docker.network={{traefik_network_name}}
-      - --providers.docker.exposedByDefault=false
+      - --providers.docker.exposedByDefault={{traefik_exposed_by_default}}
       - --providers.file.directory=/etc/traefik/conf
       - --providers.file.watch=true
       - --api.insecure
