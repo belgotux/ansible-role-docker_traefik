@@ -2,20 +2,14 @@
   file:
     name: "{{ traefik_dir }}"
     state: directory
-    # owner: "{{docker_user}}"
-    # group: "{{docker_group}}"
+    group: "{{ traefik_docker_group }}"
     mode: '02775'
-  # retries: 5
-  # delay: 3
-  # register: result
-  # until: result.rc == 0
 
 - name: create dirs {{ traefik_sub_part }}
   file:
     name: "{{ traefik_dir }}/{{ item }}"
     state: directory
-    # owner: "{{docker_user}}"
-    # group: "{{docker_group}}"
+    group: "{{ traefik_docker_group }}"
     mode: '0775'
   loop: "{{ traefik_sub_part }}"
   when: traefik_sub_part is defined

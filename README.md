@@ -54,7 +54,7 @@ Currently, only one store is usable and is named `default`. We can't use multi s
 - `traefik_exposed_by_default` Treafik service discovery take all containers and add it as a service automatically. Otherwize, you need to add explicitly `traefik.enable=true` as label on each container you want to expose in traefik, see [documentation](https://doc.traefik.io/traefik/providers/overview/#restrict-the-scope-of-service-discovery) (default `true`)
 
 ### generated vars
-- `traefik_dir` is concatenation of `docker_conf`/`traefik_service_name` (default `/etc/docker/traefik`)
+- `traefik_dir` is concatenation of `traefik_docker_conf`/`traefik_service_name` (default `/etc/docker/traefik`)
 
 ## TLS variables (optionnal)
 - `traefik_tls_options_default` set the tls default options. [See official documentation](https://doc.traefik.io/traefik/https/tls/#minimum-tls-version) for more details (default `minVersion : VersionTLS12` to allow only min TLS 1.2 clients compatible)
@@ -64,10 +64,9 @@ Currently, only one store is usable and is named `default`. We can't use multi s
 - `traefik_custom_default_cert` you can speficied which of the custom certificat need to be used, same structure as `traefik_custom_certs`. By default the first one is used (`traefik_custom_certs[0]`)
 
 ## Docker vars (can be inherit for the docker role)
-- `docker_user` your usual user to run a docker container (by default the first user with uid 1000)
-- `docker_group` your usual group to run a docker container (default `docker`)
-- `docker_conf` the docker configurations's repository (default `/etc/docker`)
-- `timezone` timezone for the container (default `Europe/Brussels`)
+- `traefik_docker_group` your usual group to run a docker container (default `docker`)
+- `traefik_docker_conf` the docker configurations's repository (default `/etc/docker`)
+- `traefik_timezone` traefik_timezone for the container (default `Europe/Brussels`)
 
 
 Additionnal traefik configuration files

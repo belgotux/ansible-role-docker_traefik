@@ -2,16 +2,14 @@
   template:
     src: docker-compose.yml.j2
     dest: "{{ traefik_dir }}/docker-compose.yml"
-    # owner: "{{docker_user}}"
-    # group: "{{docker_group}}"
+    group: "{{ traefik_docker_group }}"
     mode: '0775'
 
 - name: copy common configurations files
   copy:
     src: "{{ item }}"
     dest: "{{ traefik_dir }}/{{ traefik_sub_part[1] }}/{{ item | basename }}"
-    # owner: "{{docker_user}}"
-    # group: "{{docker_group}}"
+    group: "{{ traefik_docker_group }}"
     mode: '0775'
   loop: "{{ lookup('fileglob', 'configurations/*', wantlist=True) }}"
 
@@ -23,16 +21,14 @@
   template:
     src: "{{ item }}.yml.j2"
     dest: "{{ traefik_dir }}/{{ traefik_sub_part[1] }}/{{ item }}.yml"
-    # owner: "{{docker_user}}"
-    # group: "{{docker_group}}"
+    group: "{{ traefik_docker_group }}"
     mode: '0775'
   loop: [middlewares, tls]
 
 - name: create cloudflaire API email
   copy:
     dest: "{{ traefik_dir }}/{{ traefik_sub_part[2] }}/cf_api_email.secret"
-    # owner: "{{docker_user}}"
-    # group: "{{docker_gorup}}"
+    group: "{{ traefik_docker_group }}"
     mode: '0660'
     content: "{{ traefik_cloudflare_api_email }}"
   when: traefik_cloudflare
@@ -40,8 +36,7 @@
 - name: create cloudflaire API token
   copy:
     dest: "{{ traefik_dir }}/{{ traefik_sub_part[2] }}/cf_dns_api_token.secret"
-    # owner: "{{docker_user}}"
-    # group: "{{docker_gorup}}"
+    group: "{{ traefik_docker_group }}"
     mode: '0660'
     content: "{{ traefik_cloudflare_api_token }}"
   when: traefik_cloudflare

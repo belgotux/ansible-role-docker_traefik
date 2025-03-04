@@ -32,7 +32,7 @@ services:
 {% endif %}
 
     environment:
-      - TZ={{timezone}}
+      - TZ={{traefik_timezone}}
 {% if traefik_cloudflare %}
       - "CF_DNS_API_TOKEN_FILE=/run/secrets/cf_dns_api_token"
       - "CF_API_EMAIL_FILE=/run/secrets/cf_api_email"

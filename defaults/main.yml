@@ -1,8 +1,7 @@
 ---
-docker_user: "{{ remote_user }}"
-docker_group: "docker"
-docker_conf: "/etc/docker"
-timezone: "Europe/Brussels"
+traefik_docker_group: "docker"
+traefik_docker_conf: "/etc/docker"
+traefik_timezone: "Europe/Brussels"
 
 traefik_service_name: traefik
 traefik_network_name: "proxy-net"
@@ -69,5 +68,5 @@ traefik_mgt_users:
 ###################
 #### calculated ###
 ###################
-traefik_dir: "{{ docker_conf }}/{{ traefik_service_name }}"
+traefik_dir: "{{ traefik_docker_conf }}/{{ traefik_service_name }}"
 traefik_mgt_users_formatted: []
