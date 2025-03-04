@@ -1,0 +1,12 @@
+skip_list:
+  - fqcn[action-core]
+  - fqcn[action]
+  - name[casing]
+  - name[missing]
+  - name[template]
+  - role-name[path]
+  - risky-shell-pipe
+  - yaml[line-length]
+  - yaml[indentation]
+  - no-changed-when
+offline: true

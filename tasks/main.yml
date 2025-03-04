@@ -11,5 +11,3 @@
 - import_tasks: configure-mgt.yml
   tags: [configure]
  # notify: docker up traefik
-
-

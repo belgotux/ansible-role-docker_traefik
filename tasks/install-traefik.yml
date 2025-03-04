@@ -1,26 +1,26 @@
 - name: create traefik dir
   file:
-    name: "{{traefik_dir}}"
+    name: "{{ traefik_dir }}"
     state: directory
-    #owner: "{{docker_user}}"
-    #group: "{{docker_group}}"
-    mode: 02775
+    # owner: "{{docker_user}}"
+    # group: "{{docker_group}}"
+    mode: '02775'
   # retries: 5
   # delay: 3
   # register: result
   # until: result.rc == 0
 
-- name: create dirs {{traefik_sub_part}}
+- name: create dirs {{ traefik_sub_part }}
   file:
-    name: "{{traefik_dir}}/{{item}}"
+    name: "{{ traefik_dir }}/{{ item }}"
     state: directory
-    #owner: "{{docker_user}}"
-    #group: "{{docker_group}}"
-    mode: 0775
-  loop: "{{traefik_sub_part}}"
+    # owner: "{{docker_user}}"
+    # group: "{{docker_group}}"
+    mode: '0775'
+  loop: "{{ traefik_sub_part }}"
   when: traefik_sub_part is defined
 
-- name: dockerpull image {{traefik_image}}
+- name: dockerpull image {{ traefik_image }}
   community.docker.docker_image:
-    name: "{{traefik_image}}"
+    name: "{{ traefik_image }}"
     source: pull

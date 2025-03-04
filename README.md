@@ -67,13 +67,12 @@ Currently, only one store is usable and is named `default`. We can't use multi s
 - `docker_user` your usual user to run a docker container (by default the first user with uid 1000)
 - `docker_group` your usual group to run a docker container (default `docker`)
 - `docker_conf` the docker configurations's repository (default `/etc/docker`)
-- `docker_swarm` activate docker swarm for network and Traefik mode (default no)
 - `timezone` timezone for the container (default `Europe/Brussels`)
 
 
 Additionnal traefik configuration files
 ---------------------------------------
-You can add custom copnfiguration files into `files/configurations` in yaml files and it will be copy automatically with other files
+You can add custom configuration files into `files/configurations` in yaml files and it will be copy automatically with other files
 
 Dependencies
 ------------

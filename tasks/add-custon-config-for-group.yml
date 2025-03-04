@@ -1,6 +1,6 @@
-- name: copy custom configurations files for {{current_group}} if exist
+- name: copy custom configurations files if exist for {{ current_group }}
   copy:
-    src: "{{item}}"
-    dest: "{{traefik_dir}}/{{traefik_sub_part[1]}}/{{item|basename}}"
-    mode: 0775
-  loop: "{{lookup('fileglob','configurations/{{current_group}}/*',wantlist=True,errors='ignore')}}"
+    src: "{{ item }}"
+    dest: "{{ traefik_dir }}/{{ traefik_sub_part[1] }}/{{ item | basename }}"
+    mode: '0775'
+  loop: "{{ lookup('fileglob', 'configurations/{{current_group}}/*', wantlist=True, errors='ignore') }}"

@@ -1,5 +1,5 @@
 ---
-docker_user: "{{remote_user}}"
+docker_user: "{{ remote_user }}"
 docker_group: "docker"
 docker_conf: "/etc/docker"
 timezone: "Europe/Brussels"
@@ -8,19 +8,18 @@ traefik_service_name: traefik
 traefik_network_name: "proxy-net"
 traefik_restart: "always"
 traefik_exposed_by_default: true
-#traefik_loglevel:
-#########traefik_start_after_install: true
+# traefik_loglevel:
 traefik_port_https: 443
-#traefik_port_http:
-#traefik_port_api_unsecured:
+# traefik_port_http:
+# traefik_port_api_unsecured:
 
-#Need to respect and shift the indentation
+# Need to respect and shift the indentation
 traefik_tls_options_default: |
     minVersion: VersionTLS12
 traefik_trust_https_selfsigned_backend: true
 traefik_tls_sni_strict: false
 
-#needed following dir in ordre, but you can change the name : certificats, configuration, secrets
+# needed following dir in ordre, but you can change the name : certificats, configuration, secrets
 traefik_sub_part:
   - certs
   - conf
@@ -31,7 +30,7 @@ traefik_middlewares_enabled:
   - secure-headers
   - whitelist:
             name: local-whitelist
-            ips: 
+            ips:
               - "192.168.0.0/16"
               - "10.0.0.0/8"
               - "172.16.0.0/12"
@@ -46,7 +45,7 @@ traefik_mem_limit: 1g
 traefik_domain: "yourdomain.tld"
 traefik_subdomain: "traefik"
 traefik_image: traefik:latest
-#traefik_logs: /var/log/traefik
+# traefik_logs: /var/log/traefik
 
 traefik_cloudflare: false
 traefik_cloudflare_api_email: you@changeTOyourdomain.tld
@@ -56,7 +55,7 @@ traefik_letsencrypt: false
 traefik_letsencrypt_email: you@changeTOyourdomain.tld
 traefik_letsencrypt_staging: false
 
-#traefik_custom_certs: []
+# traefik_custom_certs: []
 
 # done by task : traefik_custom_default_cert: '{{traefik_custom_certs[0]}}'
 
@@ -70,5 +69,5 @@ traefik_mgt_users:
 ###################
 #### calculated ###
 ###################
-traefik_dir: "{{docker_conf}}/{{traefik_service_name}}"
+traefik_dir: "{{ docker_conf }}/{{ traefik_service_name }}"
 traefik_mgt_users_formatted: []
