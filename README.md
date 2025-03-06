@@ -79,7 +79,7 @@ Dependencies
 
 Example Playbook
 ----------------
-
+## Recommanded configuration
 ```
 - hosts: vps
   remote_user: root
@@ -104,6 +104,29 @@ Example Playbook
     traefik_mgt_users:
       - user: you
         passhash: $xxx
+```
+
+
+## Whitelist middleware
+Whitelist middleware can be named and restricted to differents IP sources.
+You can select a IP from the X-Forwarded-For header, useful when using a upstream reverse proxy or CDN, whith `depth`. See the [Traefik documentation](https://doc.traefik.io/traefik/middlewares/http/ipallowlist/#ipstrategydepth)
+```
+traefik_middlewares_enabled:
+  - redirect-to-https
+  - secure-headers
+  - whitelist
+traefik_middlewares_whitelist:
+    - name: local-network
+      sourceRange:
+        - "192.168.0.0/16"
+        - "10.0.0.0/8"
+        - "172.16.0.0/12"
+        - "127.0.0.1/32"
+        - "::1/128"
+    - name: admin
+      sourceRange:
+        - "1.2.4.5/32"
+      depth: 2
 ```
 
 Example extra configuration file

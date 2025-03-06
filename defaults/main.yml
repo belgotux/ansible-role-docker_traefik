@@ -27,15 +27,6 @@ traefik_sub_part:
 traefik_middlewares_enabled:
   - redirect-to-https
   - secure-headers
-  - whitelist:
-            name: local-whitelist
-            ips:
-              - "192.168.0.0/16"
-              - "10.0.0.0/8"
-              - "172.16.0.0/12"
-              - "127.0.0.1/32"
-              - "::1/128"
-              - "10.10.11.1/32"
 
 ###################
 # VALUE TO CHANGE #

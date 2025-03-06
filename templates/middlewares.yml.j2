@@ -1,6 +1,9 @@
 http:
-{% for middleware in traefik_middlewares_enabled %}
+{% if traefik_middlewares_enabled | length > 0 %}
   middlewares:
+{% endif %}
+{% for middleware in traefik_middlewares_enabled %}
+
 {% if 'redirect-to-https' in middleware %}
     redirect-to-https:
       redirectscheme:
@@ -8,10 +11,16 @@ http:
         permanent: true
 {% endif %}
 {% if 'whitelist' in middleware %}
-    {{middleware.name}}:
+{% for range in traefik_middlewares_whitelist %}
+    {{ range.name }}:
       ipWhiteList:
         sourceRange:
-          {{middleware.ips}}
+          {{ range.sourceRange }}
+{% if 'depth' in range %}
+        ipStrategy:
+          depth: {{ range.depth }}
+{% endif %}
+{% endfor %}
 {% endif %}
 {% if 'secure-headers' in middleware %}
     secure-headers:
