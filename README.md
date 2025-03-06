@@ -52,6 +52,7 @@ Currently, only one store is usable and is named `default`. We can't use multi s
 - `traefik_service_options_extra` you can add extra options under the traefik service
 - `traefik_network_name` your traefik network (default `proxy-net`)
 - `traefik_exposed_by_default` Treafik service discovery take all containers and add it as a service automatically. Otherwize, you need to add explicitly `traefik.enable=true` as label on each container you want to expose in traefik, see [documentation](https://doc.traefik.io/traefik/providers/overview/#restrict-the-scope-of-service-discovery) (default `true`)
+- `traefik_middlewares_extra` add extra middlewares at the and of the `middlewares.yml` file in yaml format, format it as a multiline string (`traefik_middlewares_extra: |`). Example bellow. Check the [documentation](https://doc.traefik.io/traefik/middlewares/http/overview/)
 
 ### generated vars
 - `traefik_dir` is concatenation of `traefik_docker_conf`/`traefik_service_name` (default `/etc/docker/traefik`)
@@ -161,7 +162,7 @@ http:
 ```
 
 ### For extra middleware
-Juste add another configuration file like this for nextcloud : the middleware `nextcloud-redirect` is declared and the middleware `nextcloud` is a chain of 2 middlewares
+Juste add another configuration file in `files/configurations/[group_name]` like this for nextcloud : the middleware `nextcloud-redirect` is declared and the middleware `nextcloud` is a chain of 2 middlewares
 ```
 http:
   middlewares:
@@ -174,6 +175,18 @@ http:
         middlewares:
           - secure-headers
           - nextcloud-redirect
+```
+
+Or add via variable : 
+```
+traefik_middlewares_extra: |
+  add-foo:
+    addPrefix:
+      prefix: "/foo"
+  testHeader:
+    headers:
+      customRequestHeaders:
+        X-Script-Name: "test"
 ```
 
 License
