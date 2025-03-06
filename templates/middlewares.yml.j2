@@ -29,3 +29,7 @@ http:
         STSSeconds: 315360000
 {% endif %}
 {% endfor %}
+
+{% if traefik_middlewares_extra is defined %}
+    {{ traefik_middlewares_extra | indent(4) }}
+{% endif %}
