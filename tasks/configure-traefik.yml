@@ -3,14 +3,14 @@
     src: docker-compose.yml.j2
     dest: "{{ traefik_dir }}/docker-compose.yml"
     group: "{{ traefik_docker_group }}"
-    mode: '0775'
+    mode: '0664'
 
 - name: copy common configurations files
   copy:
     src: "{{ item }}"
     dest: "{{ traefik_dir }}/{{ traefik_sub_part[1] }}/{{ item | basename }}"
     group: "{{ traefik_docker_group }}"
-    mode: '0775'
+    mode: '0664'
   loop: "{{ lookup('fileglob', 'configurations/*', wantlist=True) }}"
 
 - set_fact:
@@ -22,7 +22,7 @@
     src: "{{ item }}.yml.j2"
     dest: "{{ traefik_dir }}/{{ traefik_sub_part[1] }}/{{ item }}.yml"
     group: "{{ traefik_docker_group }}"
-    mode: '0775'
+    mode: '0664'
   loop: [middlewares, tls]
 
 - name: create cloudflaire API email

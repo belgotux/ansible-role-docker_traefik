@@ -87,7 +87,7 @@ services:
 {% endif %}
 
 {% if traefik_service_options_extra is defined %}
-{{ traefik_service_options_extra }}
+    {{ traefik_service_options_extra | indent(4) }}
 {% endif %}
 
 {% if traefik_cloudflare %}

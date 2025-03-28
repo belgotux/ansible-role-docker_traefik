@@ -5,6 +5,7 @@
   loop: "{{ traefik_mgt_users }}"
   loop_control:
     label: "{{ item.user }}"
+  changed_when: false
   # no_log: true
 
 # - name: raw value
@@ -45,4 +46,4 @@
     src: mgt.yml.j2
     dest: "{{ traefik_dir }}/{{ traefik_sub_part[1] }}/mgt.yml"
     group: "{{ traefik_docker_group }}"
-    mode: '0775'
+    mode: '0664'
