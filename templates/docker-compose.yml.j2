@@ -46,6 +46,9 @@ services:
       - --providers.file.watch=true
       - --api.insecure
       - --entrypoints.websecure.address=:443
+{% if traefik_notsendanonymoususage is defined %}
+      - --global.sendanonymoususage=false
+{% endif %}
 {% if traefik_loglevel is defined %}
       - --log.level={{traefik_loglevel}}
 {% endif %}
