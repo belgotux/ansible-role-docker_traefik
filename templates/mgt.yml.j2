@@ -9,7 +9,7 @@ http:
       tls: true
 {% endif %}
       middlewares: auth-mgt@file
-      rule: Host(`proxymgt.{{traefik_domain}}`)
+      rule: Host(`{{ traefik_subdomain }}.{{traefik_domain}}`)
       service: api@internal
   middlewares:
     auth-mgt:
