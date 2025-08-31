@@ -1,12 +1,15 @@
 http:
   routers:
     mgt:
-      entrypoints: websecure
+      entrypoints: {% if traefik_port_http is defined and (traefik_port_https is not defined or traefik_port_https is none) %}web{% else %}websecure{% endif %}
+
+{% if traefik_port_https is defined and traefik_port_https is not none %}
 {% if traefik_mgt_certresolver is defined %}
       tls:
         certresolver: {{traefik_mgt_certresolver}}
 {% else %}
       tls: true
+{% endif %}
 {% endif %}
       middlewares: auth-mgt@file
       rule: Host(`{{ traefik_subdomain }}.{{traefik_domain}}`)

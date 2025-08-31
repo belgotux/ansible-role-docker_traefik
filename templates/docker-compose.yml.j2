@@ -24,7 +24,7 @@ services:
 {% if traefik_port_http is defined %}
       - {{traefik_port_http}}:80
 {% endif %}
-{% if traefik_port_https is defined %}
+{% if traefik_port_https is defined and traefik_port_https is not none %}
       - {{traefik_port_https}}:443
 {% endif %}
 {% if traefik_port_api_unsecured is defined %}
@@ -45,7 +45,12 @@ services:
       - --providers.file.directory=/etc/traefik/conf
       - --providers.file.watch=true
       - --api.insecure
+{% if traefik_port_http is defined and traefik_port_https is not none %}
       - --entrypoints.websecure.address=:443
+{% endif %}
+{% if traefik_port_http is defined %}
+      - --entrypoints.web.address=:80
+{% endif %}
 {% if traefik_notsendanonymoususage is defined %}
       - --global.sendanonymoususage=false
 {% endif %}

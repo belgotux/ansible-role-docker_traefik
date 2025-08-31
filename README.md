@@ -43,7 +43,7 @@ Currently, only one store is usable and is named `default`. We can't use multi s
 ## variables (optionnal)
 - `traefik_subdomain` subdomain to use for the Traefik management interface (default `traefik`)
 - `traefik_service_name` set a container_name (default `traefik`)
-- `traefik_port_https` listen port for https. Enabling traefik to listen to this port and doing port mapping for the host (default `443`) 
+- `traefik_port_https` listen port for https. Enabling traefik to listen to this port and doing port mapping for the host (default `443`), `null` to not use https at all
 - `traefik_port_http` listen port for https. Enabling traefik to listen to this port and doing port mapping for the host (default none)
 - `traefik_port_api_unsecured` listen port to access directly to the dashboard of Traefik **for testing only** (default none)
 - `traefik_loglevel` set the loglevel like WARNING, INFO,... (default none)
